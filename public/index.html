@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mini-Nango · GitHub POC</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">MELP × NANGO ASSIGNMENT</p>
+        <h1>GitHub integration POC</h1>
+        <p class="intro">Connect a GitHub account through OAuth Device Flow, then use a small, reusable integration layer to work with repositories and issues.</p>
+      </header>
+
+      <section class="card" aria-labelledby="connection-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">1. CONNECTION</p>
+            <h2 id="connection-title">Connect GitHub</h2>
+          </div>
+          <button id="connectButton" type="button">Start secure connection</button>
+        </div>
+        <div id="devicePanel" class="device-panel" hidden>
+          <p>Open <a id="verificationLink" target="_blank" rel="noreferrer">GitHub device activation</a> and enter this one-time code:</p>
+          <output id="userCode" class="user-code"></output>
+          <p id="connectionStatus" class="muted">Waiting for authorization…</p>
+        </div>
+        <div class="connection-picker">
+          <label for="connectionSelect">Active connection</label>
+          <select id="connectionSelect"><option value="">No connected account</option></select>
+          <button id="refreshConnectionsButton" class="secondary" type="button">Refresh</button>
+          <button id="disconnectButton" class="danger" type="button">Disconnect</button>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="repositories-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">2. READ / SEARCH</p>
+            <h2 id="repositories-title">Repositories</h2>
+          </div>
+        </div>
+        <form id="repositoryForm" class="inline-form">
+          <label class="visually-hidden" for="repositoryQuery">Repository search</label>
+          <input id="repositoryQuery" name="query" placeholder="Optional search, e.g. api">
+          <button type="submit">List / search repositories</button>
+        </form>
+        <pre id="repositoriesResult" aria-live="polite">Connect an account to begin.</pre>
+      </section>
+
+      <section class="two-up">
+        <section class="card" aria-labelledby="create-title">
+          <p class="eyebrow">3. CREATE</p>
+          <h2 id="create-title">Create an issue</h2>
+          <form id="createIssueForm" class="stack-form">
+            <label>Owner <input name="owner" required placeholder="octocat"></label>
+            <label>Repository <input name="repository" required placeholder="hello-world"></label>
+            <label>Title <input name="title" required maxlength="256" placeholder="POC test issue"></label>
+            <label>Body <textarea name="body" rows="4" placeholder="Created through Mini-Nango"></textarea></label>
+            <button type="submit">Create issue</button>
+          </form>
+        </section>
+
+        <section class="card" aria-labelledby="detail-title">
+          <p class="eyebrow">4. READ DETAIL</p>
+          <h2 id="detail-title">Get issue</h2>
+          <form id="getIssueForm" class="stack-form">
+            <label>Owner <input name="owner" required placeholder="octocat"></label>
+            <label>Repository <input name="repository" required placeholder="hello-world"></label>
+            <label>Issue number <input name="issueNumber" required inputmode="numeric" min="1" type="number" placeholder="1"></label>
+            <button type="submit">Get issue details</button>
+          </form>
+        </section>
+      </section>
+
+      <section class="card" aria-labelledby="result-title">
+        <p class="eyebrow">RESPONSE</p>
+        <h2 id="result-title">Integration result</h2>
+        <pre id="operationResult" aria-live="polite">Responses from the integration API appear here.</pre>
+      </section>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
